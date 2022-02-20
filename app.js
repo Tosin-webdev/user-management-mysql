@@ -16,16 +16,20 @@ app.use(express.urlencoded({ extended: true }));
 // app.use(bodyParser.json());
 app.use(express.json()); // New
 
-// Static Files
+// To serve Static Files (img, css files)
 app.use(express.static("public"));
 
-// Update to 6.0.X
+//
 const handlebars = exphbs.create({ extname: ".hbs" });
 app.engine(".hbs", handlebars.engine);
 app.set("view engine", ".hbs");
 
-const routes = require("./server/routes/user");
-app.use("/", routes);
+app.get("/", (req, res) => {
+  res.render("home");
+});
+
+// const routes = require("./server/routes/user");
+// app.use("/", routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
