@@ -52,8 +52,6 @@ exports.form = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  let searchTerm = req.body.search;
-
   const { first_name, last_name, email, phone, comments } = req.body;
 
   // Use the connection
@@ -69,7 +67,21 @@ exports.create = (req, res) => {
       console.log("The data from the table: \n", rows);
     }
   );
-  // })
+};
+
+exports.edit = (req, res) => {
+  // Use the connection
+  connection.query(
+    "SELECT * from user WHERE id = ?"[req.params.id],
+    (err, rows) => {
+      if (!err) {
+        res.render("edit-user", { alert: "User added successfully" });
+      } else {
+        console.log(err);
+      }
+      console.log("The data from the table: \n", rows);
+    }
+  );
 };
 
 // connection.getConnection((err, connection) => {
