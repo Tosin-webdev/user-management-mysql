@@ -27,13 +27,13 @@
   </thead>
   <tbody>
 
-    {{!-- {{#each rows}} --}}
+    {{#each rows}}
     <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Jan</td>
-      <td>markjan@gmail.com</td>
-      <td>0000002</td>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.first_name}}</td>
+      <td>{{this.last_name}}</td>
+      <td>{{this.email}}</td>
+      <td>{{this.phone}}</td>
       <td class="text-end">
         <a href="" type="button" class="btn btn-light btn-small"><i class="bi bi-eye"></i> View</a>
         <a href="" type="button" class="btn btn-light btn-small"><i class="bi bi-pencil"></i>
@@ -41,7 +41,7 @@
         <a href="" type="button" class="btn btn-light btn-small"><i class="bi bi-person-x"></i> Delete</a>
       </td>
     </tr>
-    {{!-- {{/each}} --}}
+    {{/each}}
 
   </tbody>
 </table>
