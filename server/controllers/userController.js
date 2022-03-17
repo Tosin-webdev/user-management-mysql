@@ -75,7 +75,7 @@ exports.edit = (req, res) => {
     "SELECT * from user WHERE id = ?"[req.params.id],
     (err, rows) => {
       if (!err) {
-        res.render("edit-user", { alert: "User added successfully" });
+        res.render("edit-user", { rows });
       } else {
         console.log(err);
       }
