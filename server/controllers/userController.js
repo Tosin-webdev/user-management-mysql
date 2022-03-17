@@ -55,22 +55,24 @@ exports.create = (req, res) => {
   let searchTerm = req.body.search;
 
   const { first_name, last_name, email, phone, comments } = req.body;
-  connection.getConnection((err, connection) => {
-    if (err) throw err; // not connected
-    console.log("Connected as ID " + connection.threadId);
 
-    // Use the connection
-    connection.query(
-      "INSERT INTO user SET first_name = ?, last_name = ?, email = ?, phone = ?, comments = ?",
-      [first_name, last_name, email, phone, comments],
-      (err, rows) => {
-        if (!err) {
-          res.render("add-user", { rows });
-        } else {
-          console.log(err);
-        }
-        console.log("The data from the table: \n", rows);
+  // Use the connection
+  connection.query(
+    "INSERT INTO usermanagement SET first_name = ?, last_name = ?, email = ?, phone = ?, comments = ?",
+    [first_name, last_name, email, phone, comments],
+    (err, rows) => {
+      if (!err) {
+        res.render("add-user", { alert: "User added successfully" });
+      } else {
+        console.log(err);
       }
-    );
-  });
+      console.log("The data from the table: \n", rows);
+    }
+  );
+  // })
 };
+
+// connection.getConnection((err, connection) => {
+//   if (err) throw err; // not connected
+//   console.log("Connected as ID " + connection.threadId);
+// }
