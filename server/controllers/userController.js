@@ -29,4 +29,24 @@ exports.view = (req, res) => {
   );
 };
 
-// module.exports =
+// Find User by Search
+exports.find = (req, res) => {
+  let searchTerm = req.body.search;
+  // User the connection
+  connection.query(
+    "SELECT * FROM usermanagement WHERE first_name LIKE ? OR last_name LIKE ?",
+    ["%" + searchTerm + "%", "%" + searchTerm + "%"],
+    (err, rows) => {
+      if (!err) {
+        res.render("home", { rows });
+      } else {
+        console.log(err);
+      }
+      console.log("The data from user table: \n", rows);
+    }
+  );
+};
+
+exports.form = (req, res) => {
+  res.render("add-user");
+};
