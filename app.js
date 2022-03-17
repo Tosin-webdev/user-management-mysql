@@ -28,31 +28,3 @@ app.set("view engine", ".hbs");
 app.use("/", routes);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-// let connection = mysql.createConnection({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USER,
-//   password: process.env.DB_PASS,
-//   database: process.env.DB_NAME,
-// });
-
-// app.get("/", function (req, res) {
-//   connection.query(
-//     'SELECT * FROM usermanagement WHERE status = "active"',
-//     (err, rows) => {
-//       // When done with the connection, release it
-//       if (!err) {
-//         let removedUser = req.query.removed;
-//         res.render("home", { rows, removedUser });
-//       } else {
-//         console.log(err);
-//       }
-//       console.log("The data from user table: \n", rows);
-//     }
-//   );
-// });
-
-// connection.getConnection((err, connection) => {
-//   if (err) throw err;
-//   console.log("Connected as ID " + connection.threadId);
-// });
