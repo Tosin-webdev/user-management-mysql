@@ -72,7 +72,8 @@ exports.create = (req, res) => {
 exports.edit = (req, res) => {
   // Use the connection
   connection.query(
-    "SELECT * from user WHERE id = ?"[req.params.id],
+    "SELECT * from usermanagement WHERE id = ?",
+    [req.params.id],
     (err, rows) => {
       if (!err) {
         res.render("edit-user", { rows });
@@ -84,7 +85,91 @@ exports.edit = (req, res) => {
   );
 };
 
+exports.update = (req, res) => {
+  const { first_name, last_name, email, phone, comments } = req.body;
+  connection.query(
+    "UPDATE usermanagement SET first_name = ?, last_name = ?, email = ?, phone = ?, comments = ? WHERE id =?",
+    [first_name, last_name, email, phone, comments, req.params.id],
+    (err, rows) => {
+      // Use the connection
+      if (!err) {
+        connection.query(
+          "SELECT * from usermanagement WHERE id = ?",
+          [req.params.id],
+          (err, rows) => {
+            if (!err) {
+              res.render("edit-user", {
+                rows,
+                alert: `${first_name} has been updated`,
+              });
+            } else {
+              console.log(err);
+            }
+            console.log("The data from the table: \n", rows);
+          }
+        );
+      } else {
+        console.log(err);
+      }
+      console.log("The data from the table: \n", rows);
+    }
+  );
+};
+
+exports.delete = (req, res) => {
+  // Delete a record
+
+  // User the connection
+  // connection.query('DELETE FROM user WHERE id = ?', [req.params.id], (err, rows) => {
+
+  //   if(!err) {
+  //     res.redirect('/');
+  //   } else {
+  //     console.log(err);
+  //   }
+  //   console.log('The data from user table: \n', rows);
+
+  // });
+
+  // Hide a record
+
+  connection.query(
+    "UPDATE user SET status = ? WHERE id = ?",
+    ["removed", req.params.id],
+    (err, rows) => {
+      if (!err) {
+        let removedUser = encodeURIComponent("User successeflly removed.");
+        res.redirect("/?removed=" + removedUser);
+      } else {
+        console.log(err);
+      }
+      console.log("The data from beer table are: \n", rows);
+    }
+  );
+};
+
+exports.viewall = (req, res) => {};
+//     if (!err) {
+//       res.render("edit-user", { alert: "User added successfully" });
+//     }
+
 // connection.getConnection((err, connection) => {
 //   if (err) throw err; // not connected
 //   console.log("Connected as ID " + connection.threadId);
 // }
+
+// exports.delete = (req, res) => {
+//   console.log(24);
+//   connection.query(
+//     "DELETE from usermanagement WHERE id = ?",
+//     [req.params.id],
+//     (err, rows) => {
+//       if (!err) {
+//         res.redirect("/");
+//       } else {
+//         console.log(err);
+//       }
+//       console.log("The data from the table: \n", rows);
+//     }
+//   );
+// };
