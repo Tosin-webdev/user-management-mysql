@@ -12,7 +12,6 @@ console.log(1);
 // View users
 exports.view = (req, res) => {
   // res.render("home");
-  console.log(5);
   // // User the connection
   connection.query(
     'SELECT * FROM usermanagement WHERE status = "active"',
