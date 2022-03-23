@@ -147,7 +147,22 @@ exports.delete = (req, res) => {
   );
 };
 
-exports.viewall = (req, res) => {};
+exports.viewall = (req, res) => {
+  connection.query(
+    "SELECT * FROM usermanagement WHERE status = ?",
+    [req.params.id],
+    (err, rows) => {
+      // When done with the connection, release it
+      if (!err) {
+        let removedUser = req.query.removed;
+        res.render("view-user", { rows });
+      } else {
+        console.log(err);
+      }
+      console.log("The data from user table: \n", rows);
+    }
+  );
+};
 //     if (!err) {
 //       res.render("edit-user", { alert: "User added successfully" });
 //     }
