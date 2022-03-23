@@ -133,7 +133,7 @@ exports.delete = (req, res) => {
   // Hide a record
 
   connection.query(
-    "UPDATE user SET status = ? WHERE id = ?",
+    "UPDATE usermanagement SET status = ? WHERE id = ?",
     ["removed", req.params.id],
     (err, rows) => {
       if (!err) {
@@ -149,12 +149,11 @@ exports.delete = (req, res) => {
 
 exports.viewall = (req, res) => {
   connection.query(
-    "SELECT * FROM usermanagement WHERE status = ?",
+    "SELECT * FROM usermanagement WHERE id = ?",
     [req.params.id],
     (err, rows) => {
       // When done with the connection, release it
       if (!err) {
-        let removedUser = req.query.removed;
         res.render("view-user", { rows });
       } else {
         console.log(err);
