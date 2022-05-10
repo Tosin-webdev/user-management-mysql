@@ -6,5 +6,4 @@ Usage
 ```
 # Run in development
 npm run dev
-
 ```
